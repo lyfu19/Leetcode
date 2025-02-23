@@ -40,8 +40,20 @@ class Solution {
         
         return ans
     }
+    
+    func distanceBetweenBusStops(_ distance: [Int], _ start: Int, _ destination: Int) -> Int {
+        let left = min(start, destination)
+        let right = max(start, destination)
+        
+        let total = distance.reduce(into: 0) { $0 += $1 }
+        let clockwise = distance[left..<right].reduce(into: 0) { $0 += $1 }
+        let counterclockwise = total - clockwise
+        
+        return min(clockwise, counterclockwise)
+    }
 }
 
-let result = Solution().numPrimeArrangements(100)
+let distance = [7,10,1,12,11,14,5,0], start = 7, destination = 2
+let result = Solution().distanceBetweenBusStops(distance, start, destination)
 print(result)
 
