@@ -51,9 +51,49 @@ class Solution {
         
         return min(clockwise, counterclockwise)
     }
+    
+    func dayOfTheWeek(_ day: Int, _ month: Int, _ year: Int) -> String {
+        var m = month
+        var y = year
+        if m < 3 {
+            m += 12
+            y -= 1
+        }
+        
+        let K = y % 100   // Last two digits of the year
+        let J = y / 100   // First two digits of the year
+        
+        // Apply Zeller's Congruence formula
+        let h = (day + (13 * (m + 1)) / 5 + K + (K / 4) + (J / 4) - 2 * J) % 7
+        
+        let daysOfWeek = ["Saturday", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
+        return daysOfWeek[(h + 7) % 7]
+    }
+    
+    func maxNumberOfBalloons(_ text: String) -> Int {
+        let charCount = text.reduce(into: [Character : Int]()) { partialResult, char in
+            partialResult[char, default: 0] += 1
+        }
+        
+        let required: [Character : Int] = [
+            "b": 1,
+            "a": 1,
+            "l": 2,
+            "o": 2,
+            "n": 1,
+        ]
+        
+        var ans = Int.max
+        for (key, value) in required {
+            let count = charCount[key, default: 0]
+            ans = min(ans, count / value)
+        }
+        
+        return ans
+    }
 }
 
-let distance = [7,10,1,12,11,14,5,0], start = 7, destination = 2
-let result = Solution().distanceBetweenBusStops(distance, start, destination)
+let text = "loonbalxballpoon"
+let result = Solution().maxNumberOfBalloons(text)
 print(result)
 
