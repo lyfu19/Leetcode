@@ -91,9 +91,26 @@ class Solution {
         
         return ans
     }
+    
+    func minimumAbsDifference(_ arr: [Int]) -> [[Int]] {
+        let sorted = arr.sorted()
+        var minimum = Int.max
+        var ans = [[Int]]()
+        
+        for i in 1..<sorted.count {
+            if sorted[i] - sorted[i-1] < minimum {
+                minimum = sorted[i] - sorted[i-1]
+                ans = [[sorted[i-1], sorted[i]]]
+            } else if sorted[i] - sorted[i-1] == minimum {
+                ans.append([sorted[i-1], sorted[i]])
+            }
+        }
+        
+        return ans
+    }
 }
 
-let text = "loonbalxballpoon"
-let result = Solution().maxNumberOfBalloons(text)
+let arr = [3,8,-10,23,19,-4,-14,27]
+let result = Solution().minimumAbsDifference(arr)
 print(result)
 
