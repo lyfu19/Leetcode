@@ -108,9 +108,15 @@ class Solution {
         
         return ans
     }
+    
+    func uniqueOccurrences(_ arr: [Int]) -> Bool {
+        let counts = arr.reduce(into: [:]) { $0[$1, default: 0] += 1 }.values
+        var set = Set(counts)
+        return counts.count == set.count
+    }
 }
 
-let arr = [3,8,-10,23,19,-4,-14,27]
-let result = Solution().minimumAbsDifference(arr)
+let arr = [1,2,2,1,1,3]
+let result = Solution().uniqueOccurrences(arr)
 print(result)
 
