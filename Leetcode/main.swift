@@ -111,12 +111,43 @@ class Solution {
     
     func uniqueOccurrences(_ arr: [Int]) -> Bool {
         let counts = arr.reduce(into: [:]) { $0[$1, default: 0] += 1 }.values
-        var set = Set(counts)
+        let set = Set(counts)
         return counts.count == set.count
+    }
+    
+    func minCostToMoveChips(_ position: [Int]) -> Int {
+        var evenSum = 0
+        var oddSum = 0
+        
+        for index in position {
+            if index.isMultiple(of: 2) {
+                evenSum += 1
+            } else {
+                oddSum += 1
+            }
+        }
+        
+        return min(evenSum, oddSum)
+    }
+    
+    func balancedStringSplit(_ s: String) -> Int {
+        var balance = 0
+        var ans = 0
+        for char in s {
+            if char == "L" {
+                balance += 1
+            } else {
+                balance -= 1
+            }
+            if balance == 0 {
+                ans += 1
+            }
+        }
+        return ans
     }
 }
 
-let arr = [1,2,2,1,1,3]
-let result = Solution().uniqueOccurrences(arr)
+let s = "LLLLRRRR"
+let result = Solution().balancedStringSplit(s)
 print(result)
 
