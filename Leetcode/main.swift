@@ -145,9 +145,23 @@ class Solution {
         }
         return ans
     }
+    
+    func checkStraightLine(_ coordinates: [[Int]]) -> Bool {
+        let p1 = coordinates[0]
+        let p2 = coordinates[1]
+        
+        for index in 2..<coordinates.count {
+            let p = coordinates[index]
+            if (p2[1] - p1[1]) * (p[0] - p1[0]) != (p2[0] - p1[0]) * (p[1] - p1[1]) {
+                return false
+            }
+        }
+        
+        return true
+    }
 }
 
-let s = "LLLLRRRR"
-let result = Solution().balancedStringSplit(s)
+let coordinates = [[1,2],[2,3],[3,4],[4,5],[5,6],[6,7]]
+let result = Solution().checkStraightLine(coordinates)
 print(result)
 
