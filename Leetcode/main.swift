@@ -174,9 +174,20 @@ class Solution {
         
         return oddRow * (n - oddColumn) + oddColumn * (m - oddRow)
     }
+    
+    func shiftGrid(_ grid: [[Int]], _ k: Int) -> [[Int]] {
+        let length = grid[0].count
+        let flatted = grid.flatMap { $0 }
+        let index = k % flatted.count
+        let shifted = Array(flatted[(flatted.count-index)...] + flatted[..<(flatted.count-index)])
+        let ans = stride(from: 0, to: shifted.count, by: length).map { i in
+            Array(shifted[i..<min(i+length, shifted.count)])
+        }
+        return ans
+    }
 }
 
-let m = 2, n = 2, indices = [[1,1],[0,0]]
-let result = Solution().oddCells(m, n, indices)
+let grid = [[3,8,1,9],[19,7,2,5],[4,6,11,10],[12,0,21,13]], k = 0
+let result = Solution().shiftGrid(grid, k)
 print(result)
 
