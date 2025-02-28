@@ -159,9 +159,24 @@ class Solution {
         
         return true
     }
+    
+    func oddCells(_ m: Int, _ n: Int, _ indices: [[Int]]) -> Int {
+        var rowCount = Array(repeating: 0, count: m)
+        var columnCount = Array(repeating: 0, count: n)
+        
+        for index in indices {
+            rowCount[index[0]] += 1
+            columnCount[index[1]] += 1
+        }
+        
+        let oddRow = rowCount.filter { !$0.isMultiple(of: 2) }.count
+        let oddColumn = columnCount.filter { !$0.isMultiple(of: 2) }.count
+        
+        return oddRow * (n - oddColumn) + oddColumn * (m - oddRow)
+    }
 }
 
-let coordinates = [[1,2],[2,3],[3,4],[4,5],[5,6],[6,7]]
-let result = Solution().checkStraightLine(coordinates)
+let m = 2, n = 2, indices = [[1,1],[0,0]]
+let result = Solution().oddCells(m, n, indices)
 print(result)
 
