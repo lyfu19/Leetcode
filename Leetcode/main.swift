@@ -185,9 +185,24 @@ class Solution {
         }
         return ans
     }
+    
+    func minTimeToVisitAllPoints(_ points: [[Int]]) -> Int {
+        var time = 0
+        
+        for i in 1..<points.count {
+            let point = points[i]
+            let prePoint = points[i-1]
+            
+            let width = abs(point[0] - prePoint[0])
+            let height = abs(point[1] - prePoint[1])
+            time += max(width, height)
+        }
+        
+        return time
+    }
 }
 
-let grid = [[3,8,1,9],[19,7,2,5],[4,6,11,10],[12,0,21,13]], k = 0
-let result = Solution().shiftGrid(grid, k)
+let points = [[1,1],[3,4],[-1,0]]
+let result = Solution().minTimeToVisitAllPoints(points)
 print(result)
 
