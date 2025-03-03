@@ -200,9 +200,50 @@ class Solution {
         
         return time
     }
+    
+    func tictactoe(_ moves: [[Int]]) -> String {
+        var grid = [[Int]](repeating: [Int](repeating: 0, count: 3), count: 3)
+        for (index, move) in moves.enumerated() {
+            let row = move[0]
+            let column = move[1]
+            grid[row][column] = index.isMultiple(of: 2) ? 1 : -1
+        }
+        
+        for i in 0..<3 {
+            if abs(grid[i][0] + grid[i][1] + grid[i][2]) == 3 {
+                return grid[i][0] == 1 ? "A" : "B"
+            }
+            if abs(grid[0][i] + grid[1][i] + grid[2][i]) == 3 {
+                return grid[0][i] == 1 ? "A" : "B"
+            }
+        }
+        
+        if abs(grid[0][0] + grid[1][1] + grid[2][2]) == 3 {
+            return grid[1][1] == 1 ? "A" : "B"
+        }
+        if abs(grid[0][2] + grid[1][1] + grid[2][0]) == 3 {
+            return grid[1][1] == 1 ? "A" : "B"
+        }
+        
+        return moves.count == 9 ? "Draw" : "Pending"
+    }
+    
+    func subtractProductAndSum(_ n: Int) -> Int {
+        var product = 1
+        var sum = 0
+        var n = n
+        while n > 0 {
+            let digit = n % 10
+            product *= digit
+            sum += digit
+            n /= 10
+        }
+        
+        return product - sum
+    }
 }
 
-let points = [[1,1],[3,4],[-1,0]]
-let result = Solution().minTimeToVisitAllPoints(points)
+let moves = [[0,0],[2,0],[1,1],[2,1],[2,2]]
+let result = Solution().tictactoe(moves)
 print(result)
 
